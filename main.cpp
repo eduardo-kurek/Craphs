@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Graph.h"
+#include "DeepSearch.h"
+#include "Paths.h"
 
 int main(){
     Graph g(6);
@@ -11,7 +13,13 @@ int main(){
     g.AddEdge(3, 4);
     g.AddEdge(3, 5);
     g.AddEdge(0, 2);
+
+    DeepSearch ds(g);
+    Paths path(g);
+    ds.Run(path);
+
+    path.Print();
     
-    std::cout << g << std::endl;
+    //std::cout << g << std::endl;
     return 0;
 }
