@@ -6,6 +6,10 @@ class Visitor {
 
 public:
     virtual ~Visitor() = default;
+
+    /**
+     * @brief Clears the visitor state, called before each Search::Run.
+     */
     virtual void Clear(){};
 
     /**

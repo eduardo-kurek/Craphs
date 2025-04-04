@@ -14,5 +14,6 @@ public:
     virtual ~Search() = default;
     virtual void Run(Visitor& visitor, uint32_t s) = 0;
     virtual bool HasPathTo(uint32_t v) const = 0;
+    const Graph& GetGraph() const;
 
 };

@@ -1,9 +1,9 @@
 #include "Paths.h"
 #include <iostream>
 
-Paths::Paths(const Graph& graph) : graph(graph){
-    edgeTo = new uint32_t[graph.V()];
-    Clear();
+Paths::Paths(Search& searchStrategy) : searchStrategy(searchStrategy){
+    edgeTo = new uint32_t[searchStrategy.GetGraph().V()];
+    searchStrategy.Run(*this, 0);
 }
 
 Paths::~Paths(){
@@ -16,7 +16,7 @@ void Paths::Receive(uint32_t v, uint32_t w){
 }
 
 void Paths::Print() const{
-    for (uint32_t i = 0; i < graph.V(); ++i) {
+    for (uint32_t i = 0; i < searchStrategy.GetGraph().V(); ++i) {
         std::cout << i << " -> " << edgeTo[i] << std::endl;
     }
 }

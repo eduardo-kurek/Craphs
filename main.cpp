@@ -15,10 +15,10 @@ int main(){
     g.AddEdge(0, 2);
 
     DeepSearch ds(g);
-    Paths path(g);
-    ds.Run(path);
+    Paths path(ds);
 
     path.Print();
+
     
     //std::cout << g << std::endl;
     return 0;
