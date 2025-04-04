@@ -15,11 +15,17 @@ int main(){
     g.AddEdge(0, 2);
 
     DeepSearch ds(g);
-    Paths path(ds);
+    Paths path(ds, 0);
+
+    auto pathTo5 = path.PathTo(5);
+    std::cout << "Path to 1: ";
+    for (const auto& vertex : pathTo5) {
+        std::cout << vertex << " ";
+    }
+    std::cout << std::endl;
 
     path.Print();
 
-    
     //std::cout << g << std::endl;
     return 0;
 }
