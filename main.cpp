@@ -14,8 +14,7 @@ int main(){
     g.AddEdge(3, 5);
     g.AddEdge(0, 2);
 
-    DeepSearch ds(g);
-    Paths path(ds, 0);
+    Paths<DeepSearch> path(g);
 
     auto pathTo5 = path.PathTo(5);
     std::cout << "Path to 1: ";
@@ -24,7 +23,7 @@ int main(){
     }
     std::cout << std::endl;
 
-    path.Print();
+    std::cout << path << std::endl;
 
     //std::cout << g << std::endl;
     return 0;

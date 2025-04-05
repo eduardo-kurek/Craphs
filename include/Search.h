@@ -1,19 +1,21 @@
 #pragma once
 
-#include <cstdint>
 #include "Graph.h"
 #include "Visitor.h"
+#include <cstdint>
 
 class Search {
 
 protected:
+    bool* marked = nullptr;
     const Graph& graph;
+    void ClearMarkeds();
+    void Mark(uint32_t v);
 
 public:
     explicit Search(const Graph& graph);
-    virtual ~Search() = default;
+    virtual ~Search();
     virtual void Run(Visitor& visitor, uint32_t s) = 0;
-    virtual bool HasPathTo(uint32_t v) const = 0;
-    const Graph& GetGraph() const;
+    bool HasPathTo(const uint32_t v) const;
 
 };
