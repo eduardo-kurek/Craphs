@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Graph.h"
 #include "DeepSearch.h"
+#include "BreadthFirstSearch.h"
 #include "Paths.h"
 
 int main(){
@@ -14,7 +15,7 @@ int main(){
     g.AddEdge(3, 5);
     g.AddEdge(0, 2);
 
-    Paths<DeepSearch> path(g);
+    Paths<BreadthFirstSearch> path(g);
 
     auto pathTo5 = path.PathTo(5);
     std::cout << "Path to 1: ";
