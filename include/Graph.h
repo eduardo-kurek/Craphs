@@ -7,18 +7,18 @@
 
 class Graph {
 
-private:
+protected:
     const uint32_t vertices;
     uint32_t edges;
     GraphImp* graphImp;
     bool IsValidVertex(uint32_t v) const;
 
-    public:
+public:
     explicit Graph(uint32_t vertices);
-    ~Graph();
+    virtual ~Graph();
     uint32_t V() const;
     uint32_t E() const;
-    void AddEdge(uint32_t v, uint32_t w);
+    virtual void AddEdge(uint32_t v, uint32_t w);
     uint32_t Degree(uint32_t v) const;
     uint32_t MaxDegree() const;
     double AverageDegree() const;
