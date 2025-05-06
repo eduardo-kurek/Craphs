@@ -1,7 +1,6 @@
 #pragma once
 
-#include "imp/GraphImp.h"
-#include <forward_list>
+#include "graphs/imp/GraphImp.h"
 
 class AdjacentListGraph final : public GraphImp {
 

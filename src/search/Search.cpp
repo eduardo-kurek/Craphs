@@ -1,4 +1,4 @@
-#include "Search.h"
+#include "search/Search.h"
 
 Search::Search(const Graph& graph) : graph(graph){
     marked = new bool[graph.V()];

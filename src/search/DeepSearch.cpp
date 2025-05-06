@@ -1,4 +1,4 @@
-#include "DeepSearch.h"
+#include "search/DeepSearch.h"
 #include <iostream>
 
 DeepSearch::DeepSearch(const Graph &graph) : Search(graph){ }

@@ -1,30 +1,30 @@
 #pragma once
 
 #include <cstdint>
-#include <iostream>
-#include "imp/GraphImp.h"
-#include "imp/AdjacentListGraph.h"
+#include <forward_list>
+#include "graphs/imp/GraphImp.h"
 
-class Graph {
+class IGraph {
+
+private:
+    bool IsValidVertex(uint32_t v) const;
 
 protected:
     const uint32_t vertices;
     uint32_t edges;
     GraphImp* graphImp;
-    bool IsValidVertex(uint32_t v) const;
+
+    explicit IGraph(uint32_t vertices, GraphImp* graphImp) : vertices(vertices), edges(0), graphImp(graphImp){}
+    virtual ~IGraph() = default;
 
 public:
-    explicit Graph(uint32_t vertices);
-    virtual ~Graph();
     uint32_t V() const;
     uint32_t E() const;
-    virtual void AddEdge(uint32_t v, uint32_t w);
     uint32_t Degree(uint32_t v) const;
     uint32_t MaxDegree() const;
     double AverageDegree() const;
     void CheckVertex(uint32_t v) const;
     const std::forward_list<uint32_t>& Adj(uint32_t v) const;
-
-    friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
+    virtual void AddEdge(uint32_t v, uint32_t w) = 0;
 
 };

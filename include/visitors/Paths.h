@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Visitor.h"
-#include "Search.h"
+#include "visitors/Visitor.h"
+#include "search/Search.h"
 #include <unordered_map>
-#include <optional>
 #include <stdexcept>
 #include <concepts>
 #include <cstdint>

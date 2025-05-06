@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Graph.h"
-#include "Visitor.h"
 #include <cstdint>
+#include "graphs/Graph.h"
+#include "visitors/Visitor.h"
 
 class Search {
 
@@ -16,6 +16,6 @@ public:
     explicit Search(const Graph& graph);
     virtual ~Search();
     virtual void Run(Visitor& visitor, uint32_t s) = 0;
-    bool HasPathTo(const uint32_t v) const;
+    bool HasPathTo(uint32_t v) const;
 
 };

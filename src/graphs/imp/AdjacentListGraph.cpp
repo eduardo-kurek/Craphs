@@ -1,4 +1,4 @@
-#include "imp/AdjacentListGraph.h"
+#include "graphs/imp/AdjacentListGraph.h"
 
 AdjacentListGraph::AdjacentListGraph(uint32_t vertices){
     adjList = new std::forward_list<uint32_t>[vertices];

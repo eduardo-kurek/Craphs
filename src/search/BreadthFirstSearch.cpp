@@ -1,4 +1,4 @@
-#include "BreadthFirstSearch.h"
+#include "search/BreadthFirstSearch.h"
 
 void BreadthFirstSearch::Run(Visitor &visitor, uint32_t s){
     graph.CheckVertex(s);
