@@ -7,10 +7,15 @@ Graph::Graph(const uint32_t vertices)
 Graph::~Graph(){ delete graphImp; graphImp = nullptr; }
 
 void Graph::AddEdge(const uint32_t v, const uint32_t w){
-    CheckVertex(v); CheckVertex(w);
+    if(this->IsConnected(v, w)) return;
     graphImp->AddEdge(v, w);
     graphImp->AddEdge(w, v);
     edges++;
+}
+
+bool Graph::IsConnected(const uint32_t v, const uint32_t w) const{
+    CheckVertex(v); CheckVertex(w);
+    return graphImp->IsConnected(v, w) || graphImp->IsConnected(w, v);
 }
 
 std::ostream& operator<<(std::ostream& os, const Graph& graph){

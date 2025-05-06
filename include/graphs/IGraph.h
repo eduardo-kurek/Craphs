@@ -26,5 +26,6 @@ public:
     void CheckVertex(uint32_t v) const;
     const std::forward_list<uint32_t>& Adj(uint32_t v) const;
     virtual void AddEdge(uint32_t v, uint32_t w) = 0;
+    virtual bool IsConnected(uint32_t v, uint32_t w) const = 0;
 
 };
