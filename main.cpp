@@ -1,6 +1,9 @@
 #include <iostream>
 
 #include "graphs/Graph.h"
+#include "cc/GraphCC.h"
+#include "visitors/Paths.h"
+#include "search/DeepSearch.h"
 
 int main(){
     Graph g(3);
@@ -8,6 +11,11 @@ int main(){
     g.AddEdge(1, 2);
 
     std::cout << g << std::endl;
+
+    Paths<DeepSearch> paths(g, 0);
+
+    std::cout << paths << std::endl;
+    
 
     // Paths<BreadthFirstSearch> path(g);
     // path.Search(3);
