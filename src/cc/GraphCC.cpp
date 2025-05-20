@@ -1,12 +1,19 @@
 #include "cc/GraphCC.h"
-#include "visitors/Paths.h"
-#include "search/DeepSearch.h"
 #include <iostream>
+#include "search/DeepSearch.h"
+#include "visitors/Paths.h"
 
-GraphCC::GraphCC(const Graph* graph) : CC(graph) {
-    
-}
+GraphCC::GraphCC(const Graph& graph) : CC(graph) { }
 
 void GraphCC::Run(){
-    std::cout << "Running top" << std::endl;
+    DeepSearch searcher(graph);
+    for(int i = 0; i < graph.V(); i++){
+        if(searcher.IsMarked(i)) continue;
+        searcher.Run(*this, i);
+        count++;
+    }
+}
+
+void GraphCC::Receive(uint32_t v, uint32_t w){
+    id[w] = count;
 }

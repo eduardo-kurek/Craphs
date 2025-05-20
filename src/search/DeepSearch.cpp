@@ -1,7 +1,7 @@
 #include "search/DeepSearch.h"
 #include <iostream>
 
-DeepSearch::DeepSearch(const Graph &graph) : Search(graph){ }
+DeepSearch::DeepSearch(const IGraph &graph) : Search(graph){ }
 
 void DeepSearch::Run(Visitor& visitor, uint32_t s){
     graph.CheckVertex(s);

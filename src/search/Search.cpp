@@ -1,6 +1,6 @@
 #include "search/Search.h"
 
-Search::Search(const Graph& graph) : graph(graph){
+Search::Search(const IGraph& graph) : graph(graph){
     marked = new bool[graph.V()];
     ClearMarkeds();
 }
@@ -21,6 +21,11 @@ void Search::Mark(uint32_t v){
 }
 
 bool Search::HasPathTo(const uint32_t v) const{
+    graph.CheckVertex(v);
+    return marked[v];
+}
+
+bool Search::IsMarked(uint32_t v) const{
     graph.CheckVertex(v);
     return marked[v];
 }

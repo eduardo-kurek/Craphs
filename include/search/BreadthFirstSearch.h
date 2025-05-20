@@ -5,7 +5,7 @@
 
 class BreadthFirstSearch final : public Search {
 public:
-    explicit BreadthFirstSearch(const Graph& graph) : Search(graph) {}
+    explicit BreadthFirstSearch(const IGraph& graph) : Search(graph) {}
     void Run(Visitor& visitor, uint32_t s) override;
 
 private:

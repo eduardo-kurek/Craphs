@@ -1,13 +1,11 @@
 #pragma once
 
-#include "visitors/Visitor.h"
-#include "search/Search.h"
-#include <unordered_map>
-#include <stdexcept>
 #include <concepts>
 #include <cstdint>
-#include <vector>
 #include <stack>
+#include <vector>
+#include "search/Search.h"
+#include "visitors/Visitor.h"
 
 template <class T>
 requires std::derived_from<T, Search>

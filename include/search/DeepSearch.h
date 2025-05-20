@@ -8,7 +8,7 @@ private:
     void DeepSearchRecursive(Visitor& visitor, uint32_t v);
 
 public:
-    explicit DeepSearch(const Graph& graph);
+    explicit DeepSearch(const IGraph& graph);
     void Run(Visitor& visitor, uint32_t s) override;
 
 };

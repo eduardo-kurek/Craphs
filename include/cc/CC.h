@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include "graphs/IGraph.h"
 
 class CC {
@@ -7,14 +8,16 @@ class CC {
 protected:
     uint32_t* id;
     uint32_t count = 0;
-    const IGraph* graph;
+    const IGraph& graph;
+    virtual void Run() = 0;
 
 public:
-    explicit CC(const IGraph* graph);
+    explicit CC(const IGraph& graph);
     virtual ~CC();
-    virtual void Run() = 0;
-    uint32_t Count();
-    uint32_t Id(uint32_t v);
-    bool Connected(uint32_t v, uint32_t w);
+    uint32_t Count() const;
+    uint32_t Id(uint32_t v) const;
+    bool Connected(uint32_t v, uint32_t w) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const CC& graph);
 
 };
