@@ -6,8 +6,12 @@ add_compile_options(-g)
 
 project(Craphs)
 
+add_subdirectory(extern/tinyxml2)
+
 add_executable(Main main.cpp)
 target_include_directories(Main PRIVATE "include")
+
+target_link_libraries(Main PRIVATE tinyxml2)
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 target_sources(Main PRIVATE ${SOURCES})
