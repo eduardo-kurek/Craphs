@@ -14,6 +14,6 @@ void GraphCC::Run(){
     }
 }
 
-void GraphCC::Receive(uint32_t v, uint32_t w){
+void GraphCC::Receive(uint32_t v, uint32_t w, uint32_t){
     id[w] = count;
 }

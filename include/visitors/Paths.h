@@ -2,6 +2,7 @@
 
 #include <concepts>
 #include <cstdint>
+#include <ostream>
 #include <stack>
 #include <vector>
 #include "search/Search.h"
@@ -12,7 +13,6 @@ requires std::derived_from<T, Search>
 class Paths : public Visitor {
 
 private:
-    const Graph& graph;
     T searcher;
 
     uint32_t* edgeTo = nullptr;
@@ -26,7 +26,7 @@ private:
         return pathStack;
     }
 
-    std::vector<uint32_t> GetPathVector(std::stack<uint32_t>& v) const{
+    static std::vector<uint32_t> GetPathVector(std::stack<uint32_t>& v){
         std::vector<uint32_t> pathVector;
         while(!v.empty()){
             pathVector.push_back(v.top());
@@ -34,13 +34,22 @@ private:
         }
         return pathVector;
     }
+
+    void Clean(){
+        for(uint32_t i = 0; i < graph.V(); i++){
+            edgeTo[i] = -1;
+        }
+    }
+
+protected:
+    const IGraph& graph;
     
 public:
-    Paths(const Graph& graph, uint32_t startVertex) 
-        : graph(graph), searcher(graph), startVertex(startVertex)
+
+    explicit Paths(const IGraph& graph)
+        : searcher(graph), graph(graph)
     {
         edgeTo = new uint32_t[graph.V()]();
-        searcher.Run(*this, startVertex);
     }
 
     ~Paths() override{
@@ -48,7 +57,14 @@ public:
         edgeTo = nullptr;
     }
 
-    void Receive(uint32_t v, uint32_t w) override{
+    void Run(uint32_t startVertex){
+        graph.CheckVertex(startVertex);
+        this->startVertex = startVertex;
+        Clean();
+        searcher.Run(*this, startVertex);
+    }
+
+    void Receive(uint32_t v, uint32_t w, uint32_t dist) override{
         edgeTo[w] = v;
     }
 

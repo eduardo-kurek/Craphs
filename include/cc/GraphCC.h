@@ -17,6 +17,6 @@ public:
         return cc;
     }
 
-    void Receive(uint32_t v, uint32_t w) override;
+    void Receive(uint32_t v, uint32_t w, uint32_t) override;
 
 };

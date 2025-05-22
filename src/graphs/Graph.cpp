@@ -1,6 +1,7 @@
 #include "graphs/Graph.h"
-#include "graphs/imp/AdjacentListGraph.h"
 #include <stdexcept>
+#include "graphs/imp/AdjacentListGraph.h"
+#include <cstring>
 
 using namespace tinyxml2;
 
@@ -34,7 +35,24 @@ bool Graph::IsConnected(const uint32_t v, const uint32_t w) const{
 
 Graph Graph::FromGEXF(const char* filename){
     auto doc = LoadGEXF(filename);
-    return Graph(0);
+    auto root = doc->FirstChildElement("gexf");
+    auto graphElement = root->FirstChildElement("graph");
+    if(strcmp("undirected", graphElement->Attribute("defaultedgetype")) != 0){
+        throw std::invalid_argument("Only undirected graphs are supported");
+    }
+    auto verticesCount = graphElement->FirstChildElement("nodes")->IntAttribute("count");
+
+    Graph graph(verticesCount);
+
+    auto edgesElement = graphElement->FirstChildElement("edges");
+
+    for(auto edge = edgesElement->FirstChildElement("edge"); edge != nullptr; edge = edge->NextSiblingElement("edge")){
+        auto source = edge->IntAttribute("source");
+        auto target = edge->IntAttribute("target");
+        graph.AddEdge(source, target);
+    }
+
+    return graph;
 }
 
 std::ostream& operator<<(std::ostream& os, const Graph& graph){

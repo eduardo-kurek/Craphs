@@ -7,16 +7,16 @@ void DeepSearch::Run(Visitor& visitor, uint32_t s){
     graph.CheckVertex(s);
     ClearMarkeds();
     visitor.Clear();
-    visitor.Receive(-1, s);
-    DeepSearchRecursive(visitor, s);
+    visitor.Receive(-1, s, 0);
+    DeepSearchRecursive(visitor, s, 0);
 }
 
-void DeepSearch::DeepSearchRecursive(Visitor& visitor, uint32_t v){
+void DeepSearch::DeepSearchRecursive(Visitor& visitor, uint32_t v, uint32_t dist){
     Mark(v);
     for(auto w : graph.Adj(v)){
         if(!marked[w]){
-            visitor.Receive(v, w);
-            DeepSearchRecursive(visitor, w);
+            visitor.Receive(v, w, dist);
+            DeepSearchRecursive(visitor, w, dist+1);
         }
     }
 }

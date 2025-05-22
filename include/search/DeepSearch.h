@@ -5,7 +5,7 @@
 class DeepSearch final : public Search {
 
 private:
-    void DeepSearchRecursive(Visitor& visitor, uint32_t v);
+    void DeepSearchRecursive(Visitor& visitor, uint32_t v, uint32_t dist);
 
 public:
     explicit DeepSearch(const IGraph& graph);
