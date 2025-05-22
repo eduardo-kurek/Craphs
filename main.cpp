@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "algorithms/ClosenessCentrality.h"
 #include "graphs/Graph.h"
 #include "search/BreadthFirstSearch.h"
 #include "search/DeepSearch.h"
@@ -26,8 +27,8 @@ int main(){
     // g.AddEdge(9, 11);
     // g.AddEdge(5, 3);
 
-    Eccentricity eccentricity(g);
-    LOG(eccentricity);
+    ClosenessCentrality cc(g);
+    LOG(cc);
 
     return 0;
 }
