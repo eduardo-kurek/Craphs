@@ -5,13 +5,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-g)
 
 project(Craphs)
-
 add_subdirectory(extern/tinyxml2)
 
-add_executable(Main main.cpp)
-target_include_directories(Main PRIVATE "include")
-
-target_link_libraries(Main PRIVATE tinyxml2)
-
 file(GLOB_RECURSE SOURCES src/*.cpp)
-target_sources(Main PRIVATE ${SOURCES})
+add_library(craphs STATIC ${SOURCES})
+target_include_directories(craphs PUBLIC "include" "${CMAKE_SOURCE_DIR}/extern/tinyxml2")
+target_link_libraries(craphs PRIVATE tinyxml2)
+
+add_executable(Main main.cpp)
+target_link_libraries(Main PRIVATE craphs)

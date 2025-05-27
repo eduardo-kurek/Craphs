@@ -1,11 +1,6 @@
 #include <iostream>
-
 #include "algorithms/ClosenessCentrality.h"
 #include "graphs/Graph.h"
-#include "search/BreadthFirstSearch.h"
-#include "search/DeepSearch.h"
-#include "visitors/Paths.h"
-#include "algorithms/Eccentricity.h"
 
 #define LOG(x) std::cout << x << std::endl;
 
