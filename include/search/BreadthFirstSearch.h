@@ -5,7 +5,7 @@
 
 class BreadthFirstSearch final : public Search {
 public:
-    explicit BreadthFirstSearch(const IGraph& graph);
+    explicit BreadthFirstSearch(const IGraph<IEdge>& graph);
     ~BreadthFirstSearch() override;
     void Run(Visitor& visitor, uint32_t s) override;
 

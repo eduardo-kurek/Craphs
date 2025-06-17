@@ -1,7 +1,7 @@
 #include "search/DeepSearch.h"
 #include <iostream>
 
-DeepSearch::DeepSearch(const IGraph &graph) : Search(graph){ }
+DeepSearch::DeepSearch(const IGraph<IEdge>& graph) : Search(graph){ }
 
 void DeepSearch::Run(Visitor& visitor, uint32_t s){
     graph.CheckVertex(s);
@@ -13,10 +13,10 @@ void DeepSearch::Run(Visitor& visitor, uint32_t s){
 
 void DeepSearch::DeepSearchRecursive(Visitor& visitor, uint32_t v, uint32_t dist){
     Mark(v);
-    for(auto w : graph.Adj(v)){
-        if(!marked[w]){
-            visitor.Receive(v, w, dist);
-            DeepSearchRecursive(visitor, w, dist+1);
+    for(auto e : graph.Adj(v)){
+        if(!marked[e.Other()]){
+            visitor.Receive(v, e.Other(), dist);
+            DeepSearchRecursive(visitor, e.Other(), dist+1);
         }
     }
 }

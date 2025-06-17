@@ -7,7 +7,7 @@
 
 class Eccentricity final : private Paths<BreadthFirstSearch> {
 public:
-	explicit Eccentricity(const IGraph& graph);
+	explicit Eccentricity(const IGraph<IEdge>& graph);
 	~Eccentricity() override;
 	void Receive(uint32_t v, uint32_t w, uint32_t dist) override;
 	uint32_t Get(uint32_t v) const;

@@ -1,12 +1,15 @@
-#include "graphs/Graph.h"
-#include <stdexcept>
-#include "graphs/imp/AdjacentListGraph.h"
 #include <cstring>
+#include <stdexcept>
+#include "graphs/Graph.h"
+#include "graphs/imp/AdjacentListGraph.h"
+#include "graphs/Graph.h"
+#include "edges/Edge.h"
+#include "edges/WeightedEdge.h"
 
 using namespace tinyxml2;
 
-template <EdgeType T>
-std::unique_ptr<XMLDocument> Graph<T>::LoadGEXF(const char* filename){
+template <EdgeType E>
+std::unique_ptr<XMLDocument> Graph<E>::LoadGEXF(const char* filename){
     if(filename == nullptr) throw std::invalid_argument("filename is null");
     auto doc = std::make_unique<XMLDocument>();
     if (doc->LoadFile(filename) != XML_SUCCESS) {
@@ -17,30 +20,31 @@ std::unique_ptr<XMLDocument> Graph<T>::LoadGEXF(const char* filename){
     return doc;
 }
 
-template <EdgeType T>
-Graph<T>::Graph(const uint32_t vertices)
-    : IGraph(vertices, new AdjacentListGraph(vertices)) { }
+template <EdgeType E>
+Graph<E>::Graph(const uint32_t vertices)
+    : IGraph<E>(vertices, new AdjacentListGraph<E>(vertices)) { }
 
-template <EdgeType T>
-Graph<T>::~Graph(){ delete graphImp; graphImp = nullptr; }
+template <EdgeType E>
+Graph<E>::~Graph(){ delete this->graphImp; this->graphImp = nullptr; }
 
-template <EdgeType T>
-void Graph<T>::AddEdge(T edge){
+template <EdgeType E>
+void Graph<E>::AddEdge(E&& edge){
     uint32_t v = edge.Either(), w = edge.Other();
     if(this->IsConnected(v, w)) return;
-    graphImp->AddEdge(v, edge);
-    graphImp->AddEdge(w, edge);
-    edges++;
+    this->graphImp->AddEdge(v, std::move(edge));
+    this->graphImp->AddEdge(w, std::move(edge));
+    this->edges++;
 }
 
-template <EdgeType T>
-bool Graph<T>::IsConnected(const uint32_t v, const uint32_t w) const{
-    CheckVertex(v); CheckVertex(w);
-    return graphImp->IsConnected(v, w) || graphImp->IsConnected(w, v);
+template <EdgeType E>
+bool Graph<E>::IsConnected(const uint32_t v, const uint32_t w) const
+{
+    this->CheckVertex(v); this->CheckVertex(w);
+    return this->graphImp->IsConnected(v, w) || this->graphImp->IsConnected(w, v);
 }
 
-template <EdgeType T>
-Graph<T> Graph<T>::FromGEXF(const char* filename){
+template <>
+Graph<Edge> Graph<Edge>::FromGEXF(const char* filename){
     auto doc = LoadGEXF(filename);
     auto root = doc->FirstChildElement("gexf");
     auto graphElement = root->FirstChildElement("graph");
@@ -49,27 +53,18 @@ Graph<T> Graph<T>::FromGEXF(const char* filename){
     }
     auto verticesCount = graphElement->FirstChildElement("nodes")->IntAttribute("count");
 
-    Graph<T> graph(verticesCount);
+    Graph<Edge> graph(verticesCount);
 
     auto edgesElement = graphElement->FirstChildElement("edges");
 
     for(auto edge = edgesElement->FirstChildElement("edge"); edge != nullptr; edge = edge->NextSiblingElement("edge")){
         auto source = edge->IntAttribute("source");
         auto target = edge->IntAttribute("target");
-        graph.AddEdge(source, target);
+        graph.AddEdge(Edge(source, target));
     }
 
     return graph;
 }
 
-std::ostream& operator<<(std::ostream& os, const Graph& graph){
-    os << "Graph(V=" << graph.vertices << ", E=" << graph.edges << ")" << std::endl;
-    os << "Max degree: " << graph.MaxDegree() << std::endl;
-    os << "Average degree: " << graph.AverageDegree() << std::endl;
-    for(uint32_t v = 0; v < graph.V(); v++){
-        for(const auto w : graph.Adj(v)){
-            os << v << "-" << w << std::endl;
-        }
-    }
-    return os;
-}
+template class Graph<Edge>;
+template class Graph<WeightedEdge>;

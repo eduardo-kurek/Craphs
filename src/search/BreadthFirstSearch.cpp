@@ -1,6 +1,6 @@
 #include "search/BreadthFirstSearch.h"
 
-BreadthFirstSearch::BreadthFirstSearch(const IGraph& graph) : Search(graph){
+BreadthFirstSearch::BreadthFirstSearch(const IGraph<IEdge>& graph) : Search(graph){
     distances = new uint32_t[graph.V()]();
 }
 
@@ -37,8 +37,8 @@ void BreadthFirstSearch::Execute(){
 
     while(!queue.empty()){
         const uint32_t v = QueuePop();
-        for(const uint32_t w : graph.Adj(v))
-            Process(v, w);
+        for(const IEdge w : graph.Adj(v))
+            Process(v, w.Other());
     }
 }
 

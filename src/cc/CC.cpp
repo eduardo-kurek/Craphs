@@ -1,6 +1,6 @@
 #include "cc/CC.h"
 
-CC::CC(const IGraph& graph) : graph(graph){
+CC::CC(const IGraph<IEdge>& graph) : graph(graph){
     id = new uint32_t[graph.V()];
 }
 

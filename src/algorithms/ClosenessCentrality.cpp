@@ -1,7 +1,7 @@
 #include "algorithms/ClosenessCentrality.h"
 #include <iostream>
 
-ClosenessCentrality::ClosenessCentrality(const IGraph& graph)
+ClosenessCentrality::ClosenessCentrality(const IGraph<IEdge>& graph)
 	:Paths(graph)
 {
 	closenessCentrality = new float[graph.V()];
@@ -23,11 +23,11 @@ void ClosenessCentrality::Receive(uint32_t v, uint32_t w, uint32_t dist){
 }
 
 float ClosenessCentrality::Get(uint32_t v) const{
-	graph.CheckVertex(v);
+	this->graph.CheckVertex(v);
 	return closenessCentrality[v];
 }
 
 float ClosenessCentrality::GetNormalized(uint32_t v) const{
-	graph.CheckVertex(v);
+	this->graph.CheckVertex(v);
 	return closenessCentrality[v] * (graph.V() - 1);
 }

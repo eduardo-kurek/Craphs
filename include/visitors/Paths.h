@@ -36,17 +36,16 @@ private:
     }
 
     void Clean(){
-        for(uint32_t i = 0; i < graph.V(); i++){
+        for(uint32_t i = 0; i < this->graph.V(); i++)
             edgeTo[i] = -1;
-        }
     }
 
 protected:
-    const IGraph& graph;
+    const IGraph<IEdge>& graph;
     
 public:
 
-    explicit Paths(const IGraph& graph)
+    explicit Paths(const IGraph<IEdge>& graph)
         : searcher(graph), graph(graph)
     {
         edgeTo = new uint32_t[graph.V()]();

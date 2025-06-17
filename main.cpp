@@ -1,12 +1,14 @@
 #include <iostream>
 #include "algorithms/ClosenessCentrality.h"
 #include "graphs/Graph.h"
+#include "edges/Edge.h"
 
 #define LOG(x) std::cout << x << std::endl;
 
 int main(){
 
-    const Graph g = Graph::FromGEXF("../LesMiserables.gexf");
+    Graph<Edge> g = Graph<Edge>::FromGEXF("../LesMiserables.gexf");
+
     // Graph g(13);
     // g.AddEdge(0, 5);
     // g.AddEdge(4, 3);
@@ -22,8 +24,6 @@ int main(){
     // g.AddEdge(9, 11);
     // g.AddEdge(5, 3);
 
-    ClosenessCentrality cc(g);
-    LOG(cc);
-
+    LOG(g);
     return 0;
 }

@@ -8,7 +8,7 @@
 
 class ClosenessCentrality final : private Paths<BreadthFirstSearch> {
 public:
-    explicit ClosenessCentrality(const IGraph& graph);
+    explicit ClosenessCentrality(const IGraph<IEdge>& graph);
     ~ClosenessCentrality() override;
     void Receive(uint32_t v, uint32_t w, uint32_t dist) override;
     float Get(uint32_t v) const;

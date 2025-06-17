@@ -1,6 +1,6 @@
 #include "search/Search.h"
 
-Search::Search(const IGraph& graph) : graph(graph){
+Search::Search(const IGraph<IEdge>& graph) : graph(graph){
     marked = new bool[graph.V()];
     ClearMarkeds();
 }

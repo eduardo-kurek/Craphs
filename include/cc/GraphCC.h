@@ -7,11 +7,11 @@
 class GraphCC final : public CC, private Visitor {
 
 protected:
-    explicit GraphCC(const Graph& graph);
+    explicit GraphCC(const Graph<IEdge>& graph);
     void Run() override;
 
 public:
-    static GraphCC Run(const Graph& graph){
+    static GraphCC Run(const Graph<IEdge>& graph){
         GraphCC cc(graph);
         cc.Run();
         return cc;

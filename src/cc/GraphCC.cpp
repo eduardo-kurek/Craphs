@@ -3,7 +3,7 @@
 #include "search/DeepSearch.h"
 #include "visitors/Paths.h"
 
-GraphCC::GraphCC(const Graph& graph) : CC(graph) { }
+GraphCC::GraphCC(const Graph<IEdge>& graph) : CC(graph) { }
 
 void GraphCC::Run(){
     DeepSearch searcher(graph);

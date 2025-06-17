@@ -3,9 +3,6 @@
 #include <cstdint>
 #include <concepts>
 
-template<typename T>
-concept EdgeType = std::derived_from<T, IEdge>;
-
 class IEdge {
 
     uint32_t v, w;
@@ -19,3 +16,6 @@ public:
     uint32_t Other() const;
 
 };
+
+template<typename E>
+concept EdgeType = std::derived_from<E, IEdge>;

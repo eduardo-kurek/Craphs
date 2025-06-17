@@ -1,6 +1,6 @@
 #include "algorithms/Eccentricity.h"
 
-Eccentricity::Eccentricity(const IGraph& graph)
+Eccentricity::Eccentricity(const IGraph<IEdge>& graph)
 	: Paths(graph)
 {
  	eccentricity = new uint32_t[graph.V()]();

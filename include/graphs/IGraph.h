@@ -4,9 +4,10 @@
 #include <forward_list>
 #include "graphs/imp/GraphImp.h"
 #include "edges/IEdge.h"
+#include "utils/IPrintable.h"
 
 template <EdgeType T>
-class IGraph {
+class IGraph : public IPrintable {
 
 private:
     bool IsValidVertex(uint32_t v) const;
@@ -14,9 +15,9 @@ private:
 protected:
     const uint32_t vertices;
     uint32_t edges;
-    GraphImp* graphImp;
+    GraphImp<T>* graphImp;
 
-    explicit IGraph(uint32_t vertices, GraphImp* graphImp) : vertices(vertices), edges(0), graphImp(graphImp){}
+    explicit IGraph(uint32_t vertices, GraphImp<T>* graphImp) : vertices(vertices), edges(0), graphImp(graphImp){}
     virtual ~IGraph() = default;
 
 public:
@@ -26,8 +27,9 @@ public:
     uint32_t MaxDegree() const;
     double AverageDegree() const;
     void CheckVertex(uint32_t v) const;
-    const std::forward_list<uint32_t>& Adj(uint32_t v) const;
-    virtual void AddEdge(T edge) = 0;
+    const std::forward_list<T>& Adj(uint32_t v) const;
+    std::ostream& Print(std::ostream& stream) const override;
+    virtual void AddEdge(T&& edge) = 0;
     virtual bool IsConnected(uint32_t v, uint32_t w) const = 0;
 
 };
