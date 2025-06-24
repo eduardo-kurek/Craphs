@@ -51,5 +51,24 @@ const std::forward_list<E>& IGraph<E>::Adj(const uint32_t v) const{
     return graphImp->Adj(v);
 }
 
+template <EdgeType T>
+std::ostream& IGraph<T>::Print(std::ostream& os) const{
+    os << "Graph(V=" << this->vertices << ", E=" << this->edges << ")" << std::endl;
+    os << "Max degree: " << this->MaxDegree() << std::endl;
+    os << "Average degree: " << this->AverageDegree() << std::endl;
+
+    bool firstFlag = true;
+    for(uint32_t v = 0; v < this->V(); v++){
+        for(const auto w : this->Adj(v)){
+            if(!firstFlag)
+                os << std::endl;
+            w.Print(os);
+            firstFlag = false;
+        }
+    }
+
+    return os;
+}
+
 template class IGraph<Edge>;
 template class IGraph<WeightedEdge>;

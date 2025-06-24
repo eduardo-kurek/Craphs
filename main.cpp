@@ -3,8 +3,6 @@
 #include "graphs/Graph.h"
 #include "edges/Edge.h"
 
-#define LOG(x) std::cout << x << std::endl;
-
 int main(){
 
     Graph<Edge> g = Graph<Edge>::FromGEXF("../LesMiserables.gexf");
@@ -24,6 +22,7 @@ int main(){
     // g.AddEdge(9, 11);
     // g.AddEdge(5, 3);
 
-    LOG(g);
+    g.Print(std::cout);
+
     return 0;
 }
