@@ -2,7 +2,6 @@
 #include <stdexcept>
 #include "graphs/Graph.h"
 #include "graphs/imp/AdjacentListGraph.h"
-#include "graphs/Graph.h"
 #include "edges/Edge.h"
 #include "edges/WeightedEdge.h"
 
@@ -60,7 +59,7 @@ Graph<Edge> Graph<Edge>::FromGEXF(const char* filename){
     for(auto edge = edgesElement->FirstChildElement("edge"); edge != nullptr; edge = edge->NextSiblingElement("edge")){
         auto source = edge->IntAttribute("source");
         auto target = edge->IntAttribute("target");
-        graph.AddEdge(Edge(source, target));
+        graph.AddEdge({static_cast<uint32_t>(source), static_cast<uint32_t>(target)});
     }
 
     return graph;
