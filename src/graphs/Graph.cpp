@@ -28,16 +28,17 @@ Graph<E>::~Graph(){ delete this->graphImp; this->graphImp = nullptr; }
 
 template <EdgeType E>
 void Graph<E>::AddEdge(E&& edge){
-    uint32_t v = edge.Either(), w = edge.Other();
+    int32_t v = edge.Either(), w = edge.Other();
     if(this->IsConnected(v, w)) return;
+    E reversedEdge = edge;
+    reversedEdge.Reverse();
     this->graphImp->AddEdge(v, std::move(edge));
-    this->graphImp->AddEdge(w, std::move(edge));
-    this->edges++;
+    this->graphImp->AddEdge(w, std::move(reversedEdge));
+    ++this->edges;
 }
 
 template <EdgeType E>
-bool Graph<E>::IsConnected(const uint32_t v, const uint32_t w) const
-{
+bool Graph<E>::IsConnected(const uint32_t v, const uint32_t w) const{
     this->CheckVertex(v); this->CheckVertex(w);
     return this->graphImp->IsConnected(v, w) || this->graphImp->IsConnected(w, v);
 }

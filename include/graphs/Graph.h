@@ -3,6 +3,7 @@
 #include <memory>
 #include "tinyxml2.h"
 #include "graphs/IGraph.h"
+#include <iostream>
 
 template <EdgeType E>
 class Graph final : public IGraph<E> {

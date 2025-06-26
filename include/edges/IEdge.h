@@ -15,6 +15,7 @@ public:
     ~IEdge() override = default;
     uint32_t Either() const;
     uint32_t Other() const;
+    void Reverse();
     std::ostream& Print(std::ostream& os) const override;
 
 };
