@@ -3,17 +3,21 @@
 #include <cstdint>
 #include <graphs/IGraph.h>
 
+template <EdgeType E>
 struct Iteration {
-	uint32_t w = 0;
-	uint32_t v = 0;
-	uint32_t dist = 0;
+	const E* incidentEdge = nullptr;
+	uint32_t distance = 0;
+
+	uint32_t Parent() const{ return incidentEdge->Either(); }
+	uint32_t Current() const{ return incidentEdge->Other(); }
+	uint32_t Dist() const{ return distance; }
 };
 
 template <EdgeType E>
 class Searcher {
 protected:
 	const IGraph<E>& graph;
-	Iteration current;
+	Iteration<E> current;
 	bool* marked;
 	bool isDone;
 
@@ -49,34 +53,6 @@ public:
 	}
 
 	bool IsDone() const{ return isDone; }
-	const Iteration& Current() const{ return current; }
-
+	const Iteration<E>& Current() const{ return current; }
 	virtual void Next() = 0;
-
-
-	class Iterator {
-		Searcher& parent;
-		bool isDone = false;
-
-	public:
-		explicit Iterator(Searcher& parent, bool isDone = false)
-			: parent(parent), isDone(isDone) {}
-
-		bool operator!=(const Iterator& other) const{
-			return isDone != other.isDone || parent.Current() != other.parent.Current();
-		}
-
-		Iterator& operator++(){
-			parent.Next();
-			isDone = parent.IsDone();
-			return *this;
-		}
-
-		Iteration operator*() const{
-			return parent.Current();
-		}
-	};
-
-	Iterator Begin(){ return Iterator(this); }
-	Iterator End(){ return Iterator(this, false); }
 };

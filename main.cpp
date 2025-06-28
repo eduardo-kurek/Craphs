@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graphs/Graph.h"
 #include "edges/Edge.h"
-#include "iterators/DepthFirstSearch.h"
+#include "iterators/BreadthFirstSearcher.h"
 
 int main(){
 
@@ -26,11 +26,16 @@ int main(){
     g.Print(std::cout);
     std::cout << std::endl;
 
-    DepthFirstSearch dfs(g);
+    BreadthFirstSearcher dfs(g);
 
     for(dfs.Start(0); !dfs.IsDone(); dfs.Next()){
-        const auto& [w, v, dist] = dfs.Current();
-        std::cout << "w: " << w << ", v: " << v << ", dist: " << dist << std::endl;
+        auto i = dfs.Current();
+        std::cout << "v: " << i.Parent() << ", w: " << i.Current() << ", dist: " << i.Dist() << std::endl;
+    }
+
+    for(dfs.Start(1); !dfs.IsDone(); dfs.Next()){
+        auto i = dfs.Current();
+        std::cout << "v: " << i.Parent() << ", w: " << i.Current() << ", dist: " << i.Dist() << std::endl;
     }
 
     return 0;

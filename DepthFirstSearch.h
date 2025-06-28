@@ -2,8 +2,8 @@
 
 #include <stack>
 #include <queue>
-#include "graphs/IGraph.h"
-#include "iterators/Searcher.h"
+#include "include/graphs/IGraph.h"
+#include "include/iterators/Searcher.h"
 
 #define END_OF_ITERATION (-1)
 
@@ -86,7 +86,7 @@ class DepthFirstSearch final : public Searcher<E> {
 
 	void EnsureStackNotEmpty() const {
 		if(StackIsEmpty())
-			throw std::runtime_error("Stack is empty, cannot pop.");
+			throw std::runtime_error("Trying to access invalid element");
 	}
 
 	static bool ReachedEndOfIteration(uint32_t v){
