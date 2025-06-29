@@ -2,14 +2,23 @@
 
 #include <cstdint>
 #include <graphs/IGraph.h>
+#include <vector>
 
 template <EdgeType E>
 struct Iteration {
-	const E* incidentEdge = nullptr;
+	std::vector<const E*> incidentEdges;
 	uint32_t distance = 0;
 
-	uint32_t Parent() const{ return incidentEdge->Either(); }
-	uint32_t Current() const{ return incidentEdge->Other(); }
+	std::vector<uint32_t> Parents() const{
+		std::vector<uint32_t> parents;
+		parents.reserve(incidentEdges.size());
+		for(const auto& edge : incidentEdges)
+			parents.push_back(edge->Either());
+		return parents;
+	}
+
+	uint32_t FirstParent() const{ return incidentEdges[0]->Either(); }
+	uint32_t Current() const{ return incidentEdges[0]->Other(); }
 	uint32_t Dist() const{ return distance; }
 };
 
