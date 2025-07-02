@@ -23,3 +23,11 @@ uint32_t Eccentricity::Get(uint32_t v) const{
 	graph.CheckVertex(v);
 	return eccentricity[v];
 }
+
+std::ostream& Eccentricity::Print(std::ostream& os) const{
+	os << "Eccentricity of the graph:\n";
+	for (uint32_t i = 0; i < this->graph.V(); i++) {
+		os << "Vertex " << i << ": " << ecc.eccentricity[i] << "\n";
+	}
+	return os;
+}
