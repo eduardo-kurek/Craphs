@@ -1,10 +1,9 @@
 #pragma once
 
-#include <ostream>
+#include <iostream>
 
 class IPrintable {
 public:
     virtual ~IPrintable() = default;
-    virtual void Print() const;
-    virtual std::ostream& Print(std::ostream& os) const;
+    virtual std::ostream& Print(std::ostream& os = std::cout) const{ return os; }
 };

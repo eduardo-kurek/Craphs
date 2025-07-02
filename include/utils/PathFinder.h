@@ -14,38 +14,41 @@ class PathFinder final {
 	std::vector<E>* edgeTo;
 	uint32_t v;
 
-	class Path {
+public:
+	class Path final : IPrintable {
 		std::forward_list<E> edges;
-		std::unordered_set<uint32_t> vertices;
 
 	public:
 		explicit Path(std::forward_list<E>&& edges){
 			this->edges = std::move(edges);
-			vertices = std::unordered_set<uint32_t>();
-			for(auto edge : edges)
-				vertices.insert(edge.Other());
 		}
 
 		Path(E additionalEdge, const Path& other)
-			: edges(other.edges), vertices(other.vertices){
+			: edges(other.edges) {
 			this->edges.push_front(additionalEdge);
-			this->vertices.insert(additionalEdge.Other());
 		}
 
-		bool PassThrow(uint32_t v) const{ return vertices.contains(v); }
 		const E* Front() const{ return &edges.front(); }
 		bool HasFinished(uint32_t source) const{ return Front()->Other() == source; }
 		std::forward_list<E> Edges() const{ return edges; }
-		std::forward_list<uint32_t> Vertices() const{
-			std::forward_list<uint32_t> vertices;
-			auto it = vertices.before_begin();
-			for(auto edge : edges)
-				it = vertices.insert_after(it, edge.Other());
+		std::vector<uint32_t> Vertices() const{
+			std::vector<uint32_t> vertices;
+			for(const E& edge : Edges())
+				vertices.push_back(edge.Other());
 			return vertices;
 		}
 
+		std::ostream& Print(std::ostream& os) const override{
+			size_t count = 0;
+			for(auto v : Vertices()){
+				if (count++ > 0) std::cout << " -> ";
+				std::cout << v;
+			}
+			return os;
+		}
 	};
 
+private:
 	void Run(){
 		S<E> search(graph);
 		for(search.Start(v); !search.IsDone(); search.Next()){
@@ -55,7 +58,7 @@ class PathFinder final {
 		}
 	}
 
-	std::vector<Path> GetIncidentPathsOf(const Path& path){
+	std::vector<Path> GetIncidentPathsOf(const Path& path) const{
 		if(path.HasFinished(v))
 			return { path };
 
@@ -93,7 +96,7 @@ public:
 		return { };
 	}
 
-	std::vector<Path> PathsTo(uint32_t v){
+	std::vector<Path> PathsTo(uint32_t v) const{
 		graph.CheckVertex(v);
 
 		std::vector<Path> paths;
@@ -106,5 +109,5 @@ public:
 		return paths;
 	}
 
-	uint32_t WhichVertex() const{ return v; }
+	uint32_t Source() const{ return v; }
 };

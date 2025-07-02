@@ -15,13 +15,13 @@ struct Iteration {
 		std::vector<uint32_t> parents;
 		parents.reserve(incidentEdges.size());
 		for(const auto& edge : incidentEdges)
-			parents.push_back(edge->Either());
+			parents.push_back(edge.Either());
 		return parents;
 	}
 
 	uint32_t FirstParent() const{ return incidentEdges[0].Either(); }
 	uint32_t Current() const{ return incidentEdges[0].Other(); }
-	uint32_t Dist() const{ return distance; }
+	uint32_t Distance() const{ return distance; }
 	const std::vector<E>& Edges() { return incidentEdges; }
 };
 
